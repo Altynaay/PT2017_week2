@@ -8,22 +8,31 @@ namespace Student
 {
     class MainClass
     {
+        static bool isPrime(int a)
+        {   if (a == 1)
+                return false;
+            for (int i = 2; i * i < a; i++)
+                if (a % i == 0)
+                    return false;
+            return true;
+        }
         static void Pr1()
         {
             StreamReader sr = new StreamReader(@"C:\Users\Admin\Documents\input.txt");
+            StreamWriter sw = new StreamWriter(@"C:\Users\Admin\Documents\output.txt");
             string[] arr = sr.ReadLine().Split();
-            int min = 99999, max = -99999;
+            int x = 99999;
             foreach (string s in arr)
             {
                 int p = int.Parse(s);
-                if (p < min)
-                    min = p;
-                if (p > max)
-                    max = p;
+                if (isPrime(p))
+                  if (p < x)
+                      x = p;
             }
-            Console.WriteLine(min + " " + max);
-            Console.ReadKey();
+            sw.WriteLine(x);
+            sw.Close();
             sr.Close();
+            Console.ReadKey();
         }
         static void Main(string[] args)
         {
