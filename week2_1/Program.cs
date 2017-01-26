@@ -3,41 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.IO;
-namespace Student
+
+namespace ConsoleApplication2
 {
-    class MainClass
+    class Program
     {
-        static bool isPrime(int a)
-        {   if (a == 1)
-                return false;
-            for (int i = 2; i * i < a; i++)
-                if (a % i == 0)
-                    return false;
-            return true;
-        }
-        static void Pr1()
+        class Complex
         {
-            StreamReader sr = new StreamReader(@"C:\Users\Admin\Documents\input.txt");
-            StreamWriter sw = new StreamWriter(@"C:\Users\Admin\Documents\output.txt");
-            string[] arr = sr.ReadLine().Split();
-            int x = 99999;
-            foreach (string s in arr)
+            public int a, b;
+            public Complex(int a, int b)
             {
-                int p = int.Parse(s);
-                if (isPrime(p))
-                  if (p < x)
-                      x = p;
+                this.a = a;
+                this.b = b;
             }
-            sw.WriteLine(x);
-            sw.Close();
-            sr.Close();
-            Console.ReadKey();
+            public override string ToString()
+            {
+                return a + "/" + b;
+            }
+            public static Complex operator +(Complex a, Complex b)
+            {
+                Complex p = new Complex(a.a * b.b + a.b * b.a, a.b * b.b);
+                return p;
+            }
         }
         static void Main(string[] args)
         {
-            Pr1();
+            Complex a = new Complex(1, 2);
+            Complex b = new Complex(1, 3);
+            Complex c = a + b;
+            Console.WriteLine(c);
+            Console.ReadKey();
+
         }
     }
 }
-
