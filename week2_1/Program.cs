@@ -8,32 +8,29 @@ namespace ConsoleApplication2
 {
     class Program
     {
-        class Complex
+        static void Rcr(string path, int level)
         {
-            public int a, b;
-            public Complex(int a, int b)
-            {
-                this.a = a;
-                this.b = b;
-            }
-            public override string ToString()
-            {
-                return a + "/" + b;
-            }
-            public static Complex operator +(Complex a, Complex b)
-            {
-                Complex p = new Complex(a.a * b.b + a.b * b.a, a.b * b.b);
-                return p;
-            }
-        }
+            if (level > 2)
+                return;
+                DirectoryInfo directory = new DirectoryInfo(path);
+                FileInfo[] files = directory.GetFiles();
+                DirectoryInfo[] directories = directory.GetDirectories();
+
+                foreach (FileInfo file in files)
+                {
+                    emptySpace(level);
+                    Console.WriteLine(file.Name);
+                }
+                foreach (DirectoryInfo dInfo in directories)
+                {
+                    emptySpace(level);
+                    Console.WriteLine(dInfo.Name);
+                    Ex4(dInfo.FullName, level + 1);
+                }
+         }
         static void Main(string[] args)
         {
-            Complex a = new Complex(1, 2);
-            Complex b = new Complex(1, 3);
-            Complex c = a + b;
-            Console.WriteLine(c);
-            Console.ReadKey();
-
+            Rcr(@"C:\Users\Admin", 0);
         }
     }
 }
